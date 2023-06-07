@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input type="number" name="" id="number1">
+    <button type="button" onclick="CheckThang()" id="btn">Hiển thị</button>
+    <script>
+        function CheckThang() {
+            let a = document.getElementById("number1").value;
+            if(a == 1 || a == 3 || a == 5 || a == 7 || a == 8 || a == 10 || a == 12) {
+                    result = "Tháng" + a + " có 31 ngày";
+            } else if(a == 4 || a == 6 || a == 9 || a == 11){
+                result = "Tháng có 30 ngày"
+            }else if(a == 2) {
+                result = "Tháng có 28 hoặc 29 ngày"
+            }
+                
+            document.getElementById("btn").innerHTML = result;
+                
+            } 
+            
+        
+    </script>
+</body>
+</html>

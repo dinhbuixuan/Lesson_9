@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #firstDate{
+            display: inline-block;
+            margin-top: 15px;
+            margin-bottom:15px;
+            
+        }
+        #secondDate{
+            display: inline-block;
+            margin-top: 15px;
+            margin-bottom:15px;
+        }
+        form{
+            
+            height : 500px;
+            text-align: center;
+            margin-top: 50px;
+            vertical-align: middle;
+            padding-top: 200px;
+            
+        }
+    
+        
+    </style>
+</head>
+<body>
+    <form>
+        <label for="firstDate">
+            Ngày tháng năm sinh
+        </label>
+        <br>
+        <input type="date" id="firstDate" name="firstDate">
+        <br>
+        <label for="secondDate">
+            Ngày tháng năm hiện tại
+        </label>
+        <br>
+        <input type="date" id="secondDate" name="secondDate">
+        <br>
+        <button type="button" onclick="checkAge(getDate())">Check</button>
+        <button type="reset">Reset</button>
+        <p id="result"></p>
+    </form>
+    
+    <script>
+        let result = document.getElementById("result")
+        function getDate() {
+            let firstDateInput = document.getElementById("firstDate").value;
+            let secondDateInput = document.getElementById("secondDate").value;
+            let firstDate = new Date(firstDateInput);
+            let secondDate = new Date(secondDateInput);
+            let firstDay, firstMonth, firstYear, secondDay, secondMonth, secondYear;
+            //console.log(typeof (firstDate.valueOf()))
+            if (!!firstDate.valueOf() && !!secondDate.valueOf() && firstDate.valueOf() < secondDate.valueOf()) {
+                firstDay = firstDate.getDate();
+                firstMonth = firstDate.getMonth() + 1;
+                firstYear = firstDate.getFullYear();
+                secondDay = secondDate.getDate();
+                secondMonth = secondDate.getMonth() + 1;
+                secondYear = secondDate.getFullYear();
+                result.style.color = "black"; 
+                return { firstDay, firstMonth, firstYear, secondDay, secondMonth, secondYear }
+            } else if( firstDate.valueOf() >= secondDate.valueOf()){
+                result.style.color = "blue"; 
+                result.innerHTML = "Ngày tháng năm hiện tại không được nhỏ hơn hoặc trùng với năm sinh"; 
+            } else {
+                result.style.color = "red"; 
+                result.innerHTML =  "Bạn chưa nhập đầy đủ thời gian"
+            }
+        }
+        function checkAge() {
+            firstDay = getDate().firstDay;
+            secondDay = getDate().secondDay;
+            firstYear = getDate().firstYear;
+            secondYear = getDate().secondYear;
+            firstMonth = getDate().firstMonth;
+            secondMonth = getDate().secondMonth;
+            console.log(firstDay, firstMonth, firstYear, secondDay, secondMonth, secondYear)
+            let year = secondYear - firstYear;
+            let month;
+            let day;
+            function get_Month() {
+                if (secondMonth >= firstMonth) {
+                    month = secondMonth - firstMonth;
+                } else {
+                    month = 12 + secondMonth - firstMonth;
+                }
+                return { month };
+            }
+            function get_Day() {
+                if (secondDay >= firstDay) {
+                    day = secondDay - firstDay;
+                } else {
+                    day = 31 + secondDay - firstDay;
+                }
+                return { day };
+            }
+            if (year != 0) {
+                if (get_Month().month != 0) {
+                    if (get_Day().day != 0) {
+                        result.innerHTML = `Bạn ${year} năm ${get_Month().month} tháng ${get_Day().day} ngày tuổi`;
+                    } else {
+                        result.innerHTML = `Bạn ${year} năm ${get_Month().month} tháng tuổi`;
+                    }
+    
+                } else {
+                    if (get_Day().day != 0) {
+                        result.innerHTML = `Bạn ${year} năm ${get_Day().day} ngày tuổi`;
+                    } else {
+                        result.innerHTML = `Bạn ${year} năm tuổi`;
+                    }
+    
+                }
+            } else {
+                if (get_Month().month != 0) {
+                    result.innerHTML = `Bạn ${get_Month().month} tháng ${get_Day().day} ngày tuổi`;
+                } else {
+                    result.innerHTML = `Bạn ${get_Day().day} ngày tuổi`;
+                }
+            }
+    
+        }
+    </script>
+</body>
+</html>
